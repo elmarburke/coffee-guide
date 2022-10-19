@@ -31,7 +31,7 @@ export const HomeScreen: FC = () => {
         <a
           href="https://github.com/elmarburke/coffee-guide"
           className="text-blue-700 hover:underline dark:text-blue-600"
-          ref="noopener noreferrer"
+          rel="noopener noreferrer"
           target="_blank"
         >
           github.com/elmarburke/coffee-guide
@@ -41,7 +41,7 @@ export const HomeScreen: FC = () => {
         <a
           href="https://stackblitz.com/github/elmarburke/coffee-guide"
           className="text-blue-700 hover:underline dark:text-blue-600"
-          ref="noopener noreferrer"
+          rel="noopener noreferrer"
           target="_blank"
         >
           StackBlitz
