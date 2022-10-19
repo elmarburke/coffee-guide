@@ -25,6 +25,29 @@ export const HomeScreen: FC = () => {
           Explore the recipes
         </Link>
       </div>
+
+      <p className="mt-6 text-sm text-gray-500 dark:text-gray-400">
+        You can access the source code for this project on{' '}
+        <a
+          href="https://github.com/elmarburke/coffee-guide"
+          className="text-blue-700 hover:underline dark:text-blue-600"
+          ref="noopener noreferrer"
+          target="_blank"
+        >
+          github.com/elmarburke/coffee-guide
+        </a>
+        . You can check out the code on a GitHub CodeSpace, download the code,
+        or if you prefer to work in your browser, you can open it in{' '}
+        <a
+          href="https://stackblitz.com/github/elmarburke/coffee-guide"
+          className="text-blue-700 hover:underline dark:text-blue-600"
+          ref="noopener noreferrer"
+          target="_blank"
+        >
+          StackBlitz
+        </a>
+        .
+      </p>
     </div>
   );
 };
