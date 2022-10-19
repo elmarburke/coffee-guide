@@ -40,5 +40,25 @@
       "id": "Aeropress",
       "name": "Aeropress"
     }
+  ],
+  "brews": [
+    {
+      "id": "1",
+      "recipeId": "1",
+      "brewDate": "2020-01-01",
+      "brewTime": "3:00",
+      "coffee": "30g",
+      "water": "250g",
+      "notes": "This was a great brew"
+    },
+    {
+      "id": "2",
+      "recipeId": "2",
+      "brewDate": "2020-01-01",
+      "brewTime": "2:00",
+      "coffee": "20g",
+      "water": "200g",
+      "notes": "This was an other great brew"
+    }
   ]
 }
