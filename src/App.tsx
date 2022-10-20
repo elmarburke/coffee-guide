@@ -128,8 +128,8 @@ export default App;
 
 const AppSkeleton: FunctionComponent = () => {
   return (
-    <div className="flex">
-      <Spinner className="justify-center content-center" />
+    <div className="flex justify-center content-center">
+      <Spinner />
     </div>
   );
 };
