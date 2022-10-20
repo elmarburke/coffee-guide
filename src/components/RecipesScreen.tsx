@@ -1,12 +1,11 @@
+import { useQuery } from '@tanstack/react-query';
 import { Card } from 'flowbite-react';
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 import { Recipe } from '../domain';
 
-interface RecipeProps {
-  recipes: RecipeCardProps['recipe'][];
-}
+interface RecipeProps {}
 
 const loader = () => {
   return window
@@ -15,7 +14,13 @@ const loader = () => {
     .then((data) => {
       invariant(isRecepiesResponse(data), 'Not the right format');
       return data;
-    });
+    })
+    .then(
+      (data) =>
+        new Promise<typeof data>((resolve) =>
+          setTimeout(() => resolve(data), 500),
+        ),
+    );
 };
 
 const isRecepiesResponse = (data: any): data is Recipe[] => {
@@ -27,10 +32,12 @@ const isRecepiesResponse = (data: any): data is Recipe[] => {
   );
 };
 
-export const RecipesScreen: FC<RecipeProps> = ({ recipes }) => {
+export const RecipesScreen: FC<RecipeProps> = () => {
+  const query = useQuery(['recipes'], loader);
+
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-      {recipes.map((recipe) => (
+      {query.data?.map((recipe) => (
         <RecipeCard key={recipe.id} recipe={recipe} />
       ))}
     </div>
