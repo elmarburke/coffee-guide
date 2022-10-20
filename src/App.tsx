@@ -1,10 +1,24 @@
+import { FC, FunctionComponent, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Navigation } from './components/Navigation';
 import { RecipesScreen } from './components/RecipesScreen';
 import { Recipe } from './domain';
 import { HomeScreen } from './components/HomeScreen';
 import { RecipeRoute } from './components/RecipeScreen';
+import { Spinner } from 'flowbite-react';
+
+const Navigation = lazy(() =>
+  import('./components/Navigation')
+    .then(
+      (data) =>
+        new Promise<typeof data>((resolve) =>
+          setTimeout(() => resolve(data), 5000),
+        ),
+    )
+    .then(({ Navigation }) => {
+      return { default: Navigation };
+    }),
+);
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -51,19 +65,29 @@ function App() {
   return (
     <Router>
       <QueryClientProvider client={queryClient}>
-        <Navigation />
-        <main className="container p-4 mx-auto">
-          <Routes>
-            <Route path="" element={<HomeScreen />} />
-            <Route path="recipes">
-              <Route path="" element={<RecipesScreen recipes={recipes} />} />
-              <Route path=":id" element={<RecipeRoute recipes={recipes} />} />
-            </Route>
-          </Routes>
-        </main>
+        <Suspense fallback={<AppSkeleton />}>
+          <Navigation />
+          <main className="container p-4 mx-auto">
+            <Routes>
+              <Route path="" element={<HomeScreen />} />
+              <Route path="recipes">
+                <Route path="" element={<RecipesScreen recipes={recipes} />} />
+                <Route path=":id" element={<RecipeRoute recipes={recipes} />} />
+              </Route>
+            </Routes>
+          </main>
+        </Suspense>
       </QueryClientProvider>
     </Router>
   );
 }
 
 export default App;
+
+const AppSkeleton: FunctionComponent = () => {
+  return (
+    <div className="flex">
+      <Spinner className="justify-center content-center" />
+    </div>
+  );
+};
