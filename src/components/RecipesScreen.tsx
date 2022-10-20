@@ -1,11 +1,31 @@
 import { Card } from 'flowbite-react';
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
+import invariant from 'tiny-invariant';
 import { Recipe } from '../domain';
 
 interface RecipeProps {
   recipes: RecipeCardProps['recipe'][];
 }
+
+const loader = () => {
+  return window
+    .fetch(`${import.meta.env.VITE_API_URL}/recipes`)
+    .then((response) => response.json())
+    .then((data) => {
+      invariant(isRecepiesResponse(data), 'Not the right format');
+      return data;
+    });
+};
+
+const isRecepiesResponse = (data: any): data is Recipe[] => {
+  return (
+    Array.isArray(data) &&
+    data.every((recipe) => {
+      return 'id' in recipe && typeof recipe.id === 'string';
+    })
+  );
+};
 
 export const RecipesScreen: FC<RecipeProps> = ({ recipes }) => {
   return (
