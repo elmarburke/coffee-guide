@@ -52,7 +52,7 @@ function App() {
     <Router>
       <QueryClientProvider client={queryClient}>
         <Navigation />
-        <main className="container p-4">
+        <main className="container p-4 mx-auto">
           <Routes>
             <Route path="" element={<HomeScreen />} />
             <Route path="recipes">
